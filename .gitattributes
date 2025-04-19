@@ -1,2 +1,15 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Prioritize Dart for GitHub stats
+*.dart linguist-detectable=true
+
+# Exclude platform-specific folders from stats
+android/** linguist-vendored
+ios/** linguist-vendored
+macos/** linguist-vendored
+web/** linguist-vendored
+windows/** linguist-vendored
+linux/** linguist-vendored
+build/** linguist-vendored
+.flutter-plugins-dependencies linguist-generated
