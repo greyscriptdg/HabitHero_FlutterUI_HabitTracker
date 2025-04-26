@@ -1,5 +1,8 @@
 name: habithero_flutter_ui
-description: A beautiful habit tracking app with vibrant themes and animations.
+description: A beautiful gamified habit tracker UI made in Flutter.
+
+publish_to: 'none'
+
 version: 1.0.0+1
 
 environment:
@@ -11,15 +14,11 @@ dependencies:
   provider: ^6.1.0
   google_fonts: ^6.1.0
   flutter_animate: ^4.2.0
-  confetti: ^0.8.0
+  confetti: ^0.8.0    # ✅ Updated version
   lottie: ^3.1.0
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/animations/ 
+    - assets/animations/

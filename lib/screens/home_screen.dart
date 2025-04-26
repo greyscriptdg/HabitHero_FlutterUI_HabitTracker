@@ -4,52 +4,41 @@ import '../theme/theme_provider.dart';
 import '../widgets/habit_card.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('HabitHero'),
         actions: [
           IconButton(
-            icon: Icon(
-              context.watch<ThemeProvider>().isDarkMode
-                  ? Icons.light_mode
-                  : Icons.dark_mode,
-            ),
+            icon: const Icon(Icons.brightness_6),
             onPressed: () {
-              context.read<ThemeProvider>().toggleTheme();
+              themeProvider.toggleTheme();
             },
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: const [
-          HabitCard(
-            habitName: 'Morning Meditation',
-            streakCount: 7,
-            isActive: true,
-          ),
-          SizedBox(height: 16),
-          HabitCard(
-            habitName: 'Daily Exercise',
-            streakCount: 3,
-          ),
-          SizedBox(height: 16),
-          HabitCard(
-            habitName: 'Read 30 Minutes',
-            streakCount: 5,
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          children: const [
+            HabitCard(habitName: 'Morning Run', streak: 5),
+            SizedBox(height: 16),
+            HabitCard(habitName: 'Read 20 pages', streak: 12),
+            SizedBox(height: 16),
+            HabitCard(habitName: 'Meditate', streak: 7),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Implement habit completion
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: const Text('Add Habit'),
+        icon: const Icon(Icons.add),
       ),
     );
   }
-} 
+}

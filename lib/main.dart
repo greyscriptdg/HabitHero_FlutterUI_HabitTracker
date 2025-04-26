@@ -5,27 +5,28 @@ import 'theme/theme_provider.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
-      child: const HabitHeroApp(),
-    ),
-  );
+  runApp(const HabitHeroApp());
 }
 
 class HabitHeroApp extends StatelessWidget {
-  const HabitHeroApp({Key? key}) : super(key: key);
+  const HabitHeroApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HabitHero',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: context.watch<ThemeProvider>().isDarkMode
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      home: const HomeScreen(),
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, _) {
+          return MaterialApp(
+            title: 'HabitHero',
+            debugShowCheckedModeBanner: false,
+            themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            home: const HomeScreen(),
+          );
+        },
+      ),
     );
   }
-} 
+}
