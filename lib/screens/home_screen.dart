@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-<<<<<<< Updated upstream
-=======
 import 'package:confetti/confetti.dart';
->>>>>>> Stashed changes
 import '../theme/theme_provider.dart';
 import '../widgets/habit_card.dart';
-import '../widgets/badge_popup.dart'; // 👈 new import for badge popup
+import '../widgets/badge_popup.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-<<<<<<< Updated upstream
-=======
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
@@ -44,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
->>>>>>> Stashed changes
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
@@ -60,24 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-<<<<<<< Updated upstream
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ListView(
-          children: const [
-            HabitCard(habitName: 'Morning Run', streak: 5),
-            SizedBox(height: 16),
-            HabitCard(habitName: 'Read 20 pages', streak: 12),
-            SizedBox(height: 16),
-            HabitCard(habitName: 'Meditate', streak: 7),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text('Add Habit'),
-        icon: const Icon(Icons.add),
-=======
       body: Stack(
         children: [
           Padding(
@@ -110,30 +86,3 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   _showBadge = false;
                 });
-              },
-            ),
-        ],
-      ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton.extended(
-            heroTag: 'add_habit',
-            onPressed: _startConfetti,
-            label: const Text('Add Habit'),
-            icon: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 12),
-          FloatingActionButton.extended(
-            heroTag: 'unlock_badge',
-            backgroundColor: Colors.deepPurple,
-            onPressed: _unlockBadge,
-            label: const Text('Unlock Badge'),
-            icon: const Icon(Icons.emoji_events),
-          ),
-        ],
->>>>>>> Stashed changes
-      ),
-    );
-  }
-}
