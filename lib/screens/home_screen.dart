@@ -4,13 +4,8 @@ import 'package:confetti/confetti.dart'; // 👈 Add this
 import '../theme/theme_provider.dart';
 import '../widgets/habit_card.dart';
 
-<<<<<<< Updated upstream
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-=======
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
->>>>>>> Stashed changes
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -37,49 +32,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('HabitHero'),
         actions: [
           IconButton(
-            icon: Icon(
-              context.watch<ThemeProvider>().isDarkMode
-                  ? Icons.light_mode
-                  : Icons.dark_mode,
-            ),
+            icon: const Icon(Icons.brightness_6),
             onPressed: () {
-              context.read<ThemeProvider>().toggleTheme();
+              themeProvider.toggleTheme();
             },
           ),
         ],
       ),
-<<<<<<< Updated upstream
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: const [
-          HabitCard(
-            habitName: 'Morning Meditation',
-            streakCount: 7,
-            isActive: true,
-          ),
-          SizedBox(height: 16),
-          HabitCard(
-            habitName: 'Daily Exercise',
-            streakCount: 3,
-          ),
-          SizedBox(height: 16),
-          HabitCard(
-            habitName: 'Read 30 Minutes',
-            streakCount: 5,
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Implement habit completion
-        },
-        child: const Icon(Icons.add),
-=======
       body: Stack(
         children: [
           Padding(
@@ -111,8 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: _startConfetti, // 👈 Trigger confetti here!
         label: const Text('Add Habit'),
         icon: const Icon(Icons.add),
->>>>>>> Stashed changes
       ),
     );
   }
-} 
+}
