@@ -86,3 +86,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   _showBadge = false;
                 });
+              },
+            ),
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton.extended(
+            heroTag: 'add_habit',
+            onPressed: _startConfetti,
+            label: const Text('Add Habit'),
+            icon: const Icon(Icons.add),
+          ),
+          const SizedBox(height: 12),
+          FloatingActionButton.extended(
+            heroTag: 'unlock_badge',
+            backgroundColor: Colors.deepPurple,
+            onPressed: _unlockBadge,
+            label: const Text('Unlock Badge'),
+            icon: const Icon(Icons.emoji_events),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1,113 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:confetti/confetti.dart';
-import '../theme/theme_provider.dart';
-import '../widgets/habit_card.dart';
-import '../widgets/badge_popup.dart';
+import 'package:lottie/lottie.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class BadgePopup extends StatelessWidget {
+  final String badgeName;
+  final VoidCallback onClose;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late ConfettiController _confettiController;
-  bool _showBadge = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _confettiController = ConfettiController(duration: const Duration(seconds: 1));
-  }
-
-  @override
-  void dispose() {
-    _confettiController.dispose();
-    super.dispose();
-  }
-
-  void _startConfetti() {
-    _confettiController.play();
-  }
-
-  void _unlockBadge() {
-    setState(() {
-      _showBadge = true;
-    });
-  }
+  const BadgePopup({
+    super.key,
+    required this.badgeName,
+    required this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('HabitHero'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.brightness_6),
-            onPressed: () {
-              themeProvider.toggleTheme();
-            },
+    return Center(
+      child: Material(
+        color: Colors.black54,
+        child: Container(
+          margin: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(24),
           ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: ListView(
-              children: const [
-                HabitCard(habitName: 'Morning Run', streak: 5),
-                SizedBox(height: 16),
-                HabitCard(habitName: 'Read 20 pages', streak: 12),
-                SizedBox(height: 16),
-                HabitCard(habitName: 'Meditate', streak: 7),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Lottie.asset(
+                'assets/animations/badge_celebration.json', // <-- you can replace with your Lottie file
+                width: 150,
+                height: 150,
+                repeat: false,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Badge Unlocked!',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                badgeName,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: onClose,
+                child: const Text('Awesome!'),
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              emissionFrequency: 0.05,
-              numberOfParticles: 30,
-              gravity: 0.2,
-            ),
-          ),
-          if (_showBadge)
-            BadgePopup(
-              badgeName: 'Consistency Hero 🦸',
-              onClose: () {
-                setState(() {
-                  _showBadge = false;
-                });
-              },
-            ),
-        ],
-      ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton.extended(
-            heroTag: 'add_habit',
-            onPressed: _startConfetti,
-            label: const Text('Add Habit'),
-            icon: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 12),
-          FloatingActionButton.extended(
-            heroTag: 'unlock_badge',
-            backgroundColor: Colors.deepPurple,
-            onPressed: _unlockBadge,
-            label: const Text('Unlock Badge'),
-            icon: const Icon(Icons.emoji_events),
-          ),
-        ],
+        ),
       ),
     );
   }
